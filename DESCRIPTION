@@ -1,5 +1,5 @@
 Package: covid19viz
-Title: What the Package Does (One Line, Title Case)
+Title: Vizualize the WHO COVID-19 sitreps per Country
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Andree",

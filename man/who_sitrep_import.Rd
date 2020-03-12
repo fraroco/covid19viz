@@ -6,7 +6,7 @@
 \alias{who_sitrep_ggline}
 \alias{who_sitrep_ggbar}
 \alias{who_sitrep_country_report}
-\title{who sitrep data management}
+\title{who sitrep data management and visualization}
 \usage{
 who_sitrep_import(data_input)
 
@@ -58,7 +58,19 @@ clean and plot who sitrep
 
 \examples{
 
-who_sitrep_country_report(data_input = "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv",
-                          country = "Brazil")
+library(covid19viz)
+library(tidyverse)
+
+who_sitrep <- who_sitrep_import(data_input = "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv")
+
+who_sitrep \%>\%
+    who_sitrep_cleandb() \%>\%
+    filter(country=="Peru")
+
+who_sitrep \%>\%
+    who_sitrep_cleandb() \%>\%
+    who_sitrep_ggline(country = "Peru",
+                      y_cum_value = n_cum_conf,
+                      color = class, n_breaks = 10)
 
 }
