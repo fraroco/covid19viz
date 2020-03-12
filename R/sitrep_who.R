@@ -68,7 +68,7 @@ who_sitrep_ggline <- function(data,country="Peru",y_cum_value,color,n_breaks=5) 
     # mutate(class=fct_explicit_na(class)) %>%
     # mutate_at(.vars = vars(n_cum_deaths,n_inc_conf,n_inc_deaths),.funs = ~replace_na(.x,0)) %>%
     filter(country == {{country}}) %>%
-    ggplot(aes(x = date,y = {{y_cum_value}},color={{color}})) +
+    ggplot(aes(x = date, y = {{y_cum_value}},color={{color}})) +
     geom_line() +
     geom_point() +
     scale_y_continuous(breaks= scales::pretty_breaks(n = {{n_breaks}})) +
@@ -116,21 +116,27 @@ who_sitrep_country_report <- function(update,country) {
     who_sitrep_cleandb() %>%
     who_sitrep_ggline(country = country_name,
                       y_cum_value = n_cum_conf,
+                      ylab = 'Total confirmados',
                       color = class, n_breaks = 10)
+  
   f3 <- who_sitrep %>%
     who_sitrep_cleandb() %>%
     who_sitrep_ggline(country = country_name,
                       y_cum_value = n_cum_deaths,
+                      ylab = 'Total muertes',
                       color = class, n_breaks = 10)
   f2 <- who_sitrep %>%
     who_sitrep_cleandb() %>%
     who_sitrep_ggbar(country = country_name,
                      y_inc_value = n_inc_conf,
+                     ylab = 'Total nuevos confirmados',
                      fill = class)
+  
   f4 <- who_sitrep %>%
     who_sitrep_cleandb() %>%
     who_sitrep_ggbar(country = country_name,
                      y_inc_value = n_inc_deaths,
+                     ylab = 'Total nuevas muertes',
                      fill = class)
 
   #library(patchwork)
