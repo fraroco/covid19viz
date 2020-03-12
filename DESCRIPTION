@@ -7,7 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "avallecam@gmail.com",
            comment = c(ORCID = "0000-0002-7779-481X"))
-Description: What the package does (one paragraph).
+Description: Create tables and plot of power and sample size calculations from a range of required parameters. All of the parameters accepts a range or sequence of numbers.
+URL: https://avallecam.github.io/covid19viz/
+BugReports: https://github.com/avallecam/covid19viz/issues
 License: GPL-3
 Imports: tidyverse, dplyr, readr, tidyr, forcats, ggplot2, magrittr, aweek, lubridate, patchwork
 Suggests: 
