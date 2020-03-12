@@ -1,0 +1,56 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# covid19viz
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/covid19viz)](https://cran.r-project.org/package=covid19viz)
+<!-- badges: end -->
+
+The goal of covid19viz is to summarize who sitreps for covid-19 in graphics
+
+## Installation
+
+<!--
+You can install the released version of covid19viz from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("covid19viz")
+```
+-->
+
+You can install the development version of `covid19viz` using:
+
+``` r
+if(!require("remotes")) install.packages("remotes")
+remotes::install_github("cdcperu/covid19viz")
+```
+
+## Quick Example
+
+
+```{r,fig.height=7.5,fig.width=9}
+library(sitreper)
+
+#paste
+path_file <- "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv"
+
+#apply
+who_sitrep_country_report(
+  data_input = path_file,
+  country = "Brazil")
+```
+
