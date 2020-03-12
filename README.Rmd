@@ -8,6 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
+  message = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
@@ -20,9 +21,13 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/covid19viz)](https://cran.r-project.org/package=covid19viz)
 <!-- badges: end -->
 
-The goal of `covid19viz` is to summarize WHO sitreps for covid-19 in simple graphics.
+The goal of `covid19viz` is to access and summarize WHO sitreps for covid-19 in simple graphics.
 
-This package works using the [fkrauer/COVID-19](https://github.com/fkrauer/COVID-19) reporsitory.
+This package works using two data repositories:
+
+- digitalized WHO sitreps by [Fabienne Krauer](https://twitter.com/FabiKrauer) available in [fkrauer/COVID-19](https://github.com/fkrauer/COVID-19).
+
+- Johns Hopkins University (JHU CSSE) available in [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19).
 
 ## Installation
 
@@ -43,16 +48,31 @@ remotes::install_github("avallecam/covid19viz")
 
 ## Quick Example
 
+### with WHO sitreps
 
 ```{r,fig.height=7.5,fig.width=9}
 library(covid19viz)
 
-#paste
-path_file <- "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv"
+# paste las update available at
+# https://github.com/fkrauer/COVID-19
+update <- "2020-03-10"
 
-#apply
+# apply
 who_sitrep_country_report(
-  data_input = path_file,
+  update = update,
   country = "Brazil")
+```
+
+### with JHU collection
+
+```{r}
+library(tidyverse)
+
+jhu_sitrep <- jhu_sitrep_import(source = "confirmed")
+
+jhu_sitrep %>%
+  jhu_sitrep_cleandb() %>%
+  filter(country_region=="Peru") %>%
+  arrange(desc(value))
 ```
 

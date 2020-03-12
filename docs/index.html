@@ -64,8 +64,12 @@
 <a href="#covid19viz" class="anchor"></a>covid19viz</h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>covid19viz</code> is to summarize WHO sitreps for covid-19 in simple graphics.</p>
-<p>This package works using the <a href="https://github.com/fkrauer/COVID-19">fkrauer/COVID-19</a> reporsitory.</p>
+<p>The goal of <code>covid19viz</code> is to access and summarize WHO sitreps for covid-19 in simple graphics.</p>
+<p>This package works using two data repositories:</p>
+<ul>
+<li><p>digitalized WHO sitreps by <a href="https://twitter.com/FabiKrauer">Fabienne Krauer</a> available in <a href="https://github.com/fkrauer/COVID-19">fkrauer/COVID-19</a>.</p></li>
+<li><p>Johns Hopkins University (JHU CSSE) available in <a href="https://github.com/CSSEGISandData/COVID-19">CSSEGISandData/COVID-19</a>.</p></li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -83,27 +87,47 @@ install.packages("covid19viz")
 <div id="quick-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-example" class="anchor"></a>Quick Example</h2>
+<div id="with-who-sitreps" class="section level3">
+<h3 class="hasAnchor">
+<a href="#with-who-sitreps" class="anchor"></a>with WHO sitreps</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(covid19viz)</a>
 <a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#paste</span></a>
-<a class="sourceLine" id="cb2-4" title="4">path_file &lt;-<span class="st"> "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv"</span></a>
-<a class="sourceLine" id="cb2-5" title="5"></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#apply</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="kw"><a href="reference/who_sitrep_import.html">who_sitrep_country_report</a></span>(</a>
-<a class="sourceLine" id="cb2-8" title="8">  <span class="dt">data_input =</span> path_file,</a>
-<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">country =</span> <span class="st">"Brazil"</span>)</a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; cols(</span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;   date = col_date(format = ""),</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;   country = col_character(),</span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;   adm = col_character(),</span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt;   n_cum_conf = col_double(),</span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt;   n_cum_deaths = col_double(),</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt;   n_inc_conf = col_double(),</span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt;   n_inc_deaths = col_double(),</span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt;   class = col_character()</span></a>
-<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; )</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co"># paste las update available at</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co"># https://github.com/fkrauer/COVID-19</span></a>
+<a class="sourceLine" id="cb2-5" title="5">update &lt;-<span class="st"> "2020-03-10"</span></a>
+<a class="sourceLine" id="cb2-6" title="6"></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co"># apply</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="kw"><a href="reference/who_sitrep_import.html">who_sitrep_country_report</a></span>(</a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">update =</span> update,</a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="dt">country =</span> <span class="st">"Brazil"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+</div>
+<div id="with-jhu-collection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#with-jhu-collection" class="anchor"></a>with JHU collection</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">jhu_sitrep &lt;-<span class="st"> </span><span class="kw"><a href="reference/jhu_sitrep_import.html">jhu_sitrep_import</a></span>(<span class="dt">source =</span> <span class="st">"confirmed"</span>)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5">jhu_sitrep <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="st">  </span><span class="kw"><a href="reference/jhu_sitrep_import.html">jhu_sitrep_cleandb</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(country_region<span class="op">==</span><span class="st">"Peru"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(value))</a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; # A tibble: 50 x 7</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;    source    country_region province_state   lat  long dates      value</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  1 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-03-10    11</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt;  2 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-03-11    11</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt;  3 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-03-09     7</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt;  4 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-03-08     6</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt;  5 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-03-06     1</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt;  6 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-03-07     1</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt;  7 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-01-22     0</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt;  8 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-01-23     0</span></a>
+<a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt;  9 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-01-24     0</span></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; 10 confirmed Peru           &lt;NA&gt;           -9.19 -75.0 2020-01-25     0</span></a>
+<a class="sourceLine" id="cb3-22" title="22"><span class="co">#&gt; # ... with 40 more rows</span></a></code></pre></div>
+</div>
 </div>
 </div>
   </div>

@@ -4,16 +4,17 @@
 #'
 #' @describeIn who_sitrep_import import data from github
 #'
-#' @param data_input string of github repo
+#' @param update string of date to update
 #'
 #' @import readr
 #' @import dplyr
 #' @import tidyr
+#' @import stringr
 #' @import forcats
 #' @import ggplot2
 #' @import patchwork
 #'
-#' @return report per country
+#' @return report per country using digitalized who sitreps
 #'
 #' @export who_sitrep_import
 #' @export who_sitrep_cleandb
@@ -26,7 +27,7 @@
 #' library(covid19viz)
 #' library(tidyverse)
 #'
-#' who_sitrep <- who_sitrep_import(data_input = "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv")
+#' who_sitrep <- who_sitrep_import(update = "2020-03-10")
 #'
 #' who_sitrep %>%
 #'     who_sitrep_cleandb() %>%
@@ -39,14 +40,15 @@
 #'                       color = class, n_breaks = 10)
 #'
 
-who_sitrep_import <- function(data_input) {
-  path_file <- {{data_input}}
-  who_sitrep <- read_csv(file = path_file)
+who_sitrep_import <- function(update) {
+  path_file <- {{update}}
+  path_start <- "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_"
+  who_sitrep <- read_csv(file = str_c(path_start,update,".csv"))
 }
 
-#' @describeIn who_sitrep_import clean dataset
+#' @describeIn who_sitrep_import clean who dataset
 #' @inheritParams who_sitrep_import
-#' @param data input of raw dataset
+#' @param data input of raw who dataset
 
 who_sitrep_cleandb <- function(data) {
   data %>%
@@ -95,12 +97,12 @@ who_sitrep_ggbar <- function(data,country="Peru",y_inc_value,fill,n_breaks=5) {
     theme(axis.text.x = element_text(angle = 90, hjust = 1),)
 }
 
-#' @describeIn who_sitrep_import remove replicates
+#' @describeIn who_sitrep_import create a full unified report
 #' @inheritParams who_sitrep_import
 
-who_sitrep_country_report <- function(data_input,country) {
+who_sitrep_country_report <- function(update,country) {
 
-  who_sitrep <- who_sitrep_import(data_input = {{data_input}})
+  who_sitrep <- who_sitrep_import(update = {{update}})
 
   country_name <- {{country}}
 

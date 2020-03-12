@@ -8,7 +8,7 @@
 \alias{who_sitrep_country_report}
 \title{who sitrep data management and visualization}
 \usage{
-who_sitrep_import(data_input)
+who_sitrep_import(update)
 
 who_sitrep_cleandb(data)
 
@@ -18,12 +18,12 @@ who_sitrep_ggline(data, country = "Peru", y_cum_value, color,
 who_sitrep_ggbar(data, country = "Peru", y_inc_value, fill,
   n_breaks = 5)
 
-who_sitrep_country_report(data_input, country)
+who_sitrep_country_report(update, country)
 }
 \arguments{
-\item{data_input}{string of github repo}
+\item{update}{string of date to update}
 
-\item{data}{input of raw dataset}
+\item{data}{input of raw who dataset}
 
 \item{country}{string of country name}
 
@@ -38,7 +38,7 @@ who_sitrep_country_report(data_input, country)
 \item{fill}{fill of attribute}
 }
 \value{
-report per country
+report per country using digitalized who sitreps
 }
 \description{
 clean and plot who sitrep
@@ -47,13 +47,13 @@ clean and plot who sitrep
 \itemize{
 \item \code{who_sitrep_import}: import data from github
 
-\item \code{who_sitrep_cleandb}: clean dataset
+\item \code{who_sitrep_cleandb}: clean who dataset
 
 \item \code{who_sitrep_ggline}: plot a ggplot geom_line
 
 \item \code{who_sitrep_ggbar}: plot a ggplot geom_col
 
-\item \code{who_sitrep_country_report}: remove replicates
+\item \code{who_sitrep_country_report}: create a full unified report
 }}
 
 \examples{
@@ -61,7 +61,7 @@ clean and plot who sitrep
 library(covid19viz)
 library(tidyverse)
 
-who_sitrep <- who_sitrep_import(data_input = "https://raw.github.com/fkrauer/COVID-19/master/data/WHO_COVID19_ALL_ADM0_2020-03-10.csv")
+who_sitrep <- who_sitrep_import(update = "2020-03-10")
 
 who_sitrep \%>\%
     who_sitrep_cleandb() \%>\%
